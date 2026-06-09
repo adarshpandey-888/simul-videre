@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SimulVidere 🎬</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ══ INTRO SCREEN ══ -->
+  <div id="intro-screen">
+    <div class="intro-logo">SimulVidere</div>
+    <div class="intro-tagline">STREAM TOGETHER · FEEL TOGETHER</div>
+    <div class="intro-bar"><div class="intro-bar-fill"></div></div>
+  </div>
+
+  <!-- ══ LOBBY ══ -->
+  <div id="lobby" style="display:none;">
+    <div class="lobby-logo">SimulVidere</div>
+    <div class="lobby-sub">STREAM TOGETHER · FEEL TOGETHER</div>
+
+    <div class="card">
+      <div class="card-title">Naya Room Banao</div>
+      <input type="text" id="host-name" placeholder="Tumhara naam..."/>
+      <button class="btn-primary" onclick="createRoom()">🎬 Room Banao</button>
+    </div>
+
+    <div class="divider">ya</div>
+
+    <div class="card">
+      <div class="card-title">Room Join Karo</div>
+      <input type="text" id="join-name" placeholder="Tumhara naam..."/>
+      <input type="text" id="join-code" placeholder="Room Code (YT-XXXX)"/>
+      <button class="btn-primary" onclick="joinRoom()">🚀 Join Karo</button>
+    </div>
+  </div>
+
+  <!-- ══ ROOM ══ -->
+  <div id="room" style="display:none;">
+
+    <!-- Header -->
+    <div class="room-header">
+      <div class="room-header-left">
+        <div class="site-logo-small">WT</div>
+        <span id="room-title"></span>
+        <span class="room-code-badge" id="room-code-badge"></span>
+      </div>
+      <button class="btn-ghost" onclick="leaveRoom()">← Wapas Jao</button>
+    </div>
+
+    <!-- Members + Viewer Count + Sync -->
+    <div class="room-meta">
+      <div id="members-list"></div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <div class="viewer-count">
+          <div class="viewer-dot"></div>
+          <span id="viewer-count-text">1 dekh raha hai</span>
+        </div>
+        <span id="sync-status" class="sync-badge waiting">⏳ Video load karo</span>
+      </div>
+    </div>
+
+    <!-- Player -->
+    <div class="player-container">
+      <div id="placeholder">
+        <div class="placeholder-icon">🎬</div>
+        <div class="placeholder-text">Neeche YouTube link daalo</div>
+      </div>
+      <div id="yt-player"></div>
+      <!-- Floating emoji reactions yahan aayenge -->
+      <div id="reaction-container"></div>
+    </div>
+
+    <!-- Emoji Reaction Bar -->
+    <div class="reaction-bar">
+      <span>React:</span>
+      <button class="reaction-btn" onclick="sendReaction('❤️')">❤️</button>
+      <button class="reaction-btn" onclick="sendReaction('🔥')">🔥</button>
+      <button class="reaction-btn" onclick="sendReaction('😂')">😂</button>
+      <button class="reaction-btn" onclick="sendReaction('😮')">😮</button>
+      <button class="reaction-btn" onclick="sendReaction('👏')">👏</button>
+      <button class="reaction-btn" onclick="sendReaction('🍿')">🍿</button>
+    </div>
+
+    <!-- URL Bar -->
+    <div class="url-bar">
+      <input type="text" id="yt-url" placeholder="YouTube link yahan daalo..."/>
+      <button class="btn-primary" onclick="loadVideo()">Load ▶</button>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls" id="controls" style="display:none;">
+      <button class="btn-ctrl active" id="btn-play"  onclick="syncPlay()">▶ Play</button>
+      <button class="btn-ctrl"        id="btn-pause" onclick="syncPause()">⏸ Pause</button>
+      <button class="btn-ctrl" onclick="syncSeek(-10)">⏪ 10s</button>
+      <button class="btn-ctrl" onclick="syncSeek(10)">10s ⏩</button>
+    </div>
+
+    <!-- Chat -->
+    <div class="chat-section">
+      <div class="chat-header">Live Chat 💬</div>
+      <div class="chat-box" id="chat-box"></div>
+      <div class="chat-input">
+        <input type="text" id="chat-input"
+               placeholder="Kuch likho aur Enter dabao..."
+               onkeydown="if(event.key==='Enter') sendChat()"/>
+        <button class="btn-primary" onclick="sendChat()">Send</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <!-- Scripts -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
